@@ -294,9 +294,13 @@ class LogoFetchService {
       return domainMap[lower];
     }
 
-    // Fuzzy: check of de naam een bekende key bevat
+    // Fuzzy: alleen hele-woord-treffers van een bekende key binnen de naam.
+    // Substring-matching (in beide richtingen) gaf valse treffers bij korte
+    // fragmenten, bijv. 'ing' -> 'booking.com' en 'colony' -> 'only'.
     for (final entry in domainMap.entries) {
-      if (lower.contains(entry.key) || entry.key.contains(lower)) {
+      if (entry.key.length < 3) continue;
+      final wholeWord = RegExp(r'\b' + RegExp.escape(entry.key) + r'\b');
+      if (wholeWord.hasMatch(lower)) {
         return entry.value;
       }
     }
