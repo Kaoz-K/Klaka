@@ -43,3 +43,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# macOS ephemeral (machine-specific Flutter build files)
+**/Flutter/ephemeral/
+
+# Claude Code local session data (large, machine-specific)
+.claude/
+
+# Sync-conflict duplicates of generated plugin file
+.flutter-plugins-dependencies*

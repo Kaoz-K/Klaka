@@ -40,6 +40,20 @@ class LoyaltyCardsNotifier extends Notifier<List<LoyaltyCard>> {
     await HiveService.deleteCard(id);
     state = state.where((c) => c.id != id).toList();
   }
+
+  Future<void> toggleFavorite(String id) async {
+    final card = state.firstWhere((c) => c.id == id);
+    final updated = card.copyWith(isFavorite: !card.isFavorite);
+    await HiveService.saveCard(updated);
+    state = [for (final c in state) if (c.id == id) updated else c];
+  }
+
+  Future<void> markAsUsed(String id) async {
+    final card = state.firstWhere((c) => c.id == id);
+    final updated = card.copyWith(lastUsedAt: DateTime.now());
+    await HiveService.saveCard(updated);
+    state = [for (final c in state) if (c.id == id) updated else c];
+  }
 }
 
 final loyaltyCardsProvider =

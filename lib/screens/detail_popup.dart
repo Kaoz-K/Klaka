@@ -22,6 +22,9 @@ class _DetailPopupState extends ConsumerState<DetailPopup> {
   void initState() {
     super.initState();
     _setMaxBrightness();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(loyaltyCardsProvider.notifier).markAsUsed(widget.cardId);
+    });
   }
 
   @override
@@ -74,17 +77,37 @@ class _DetailPopupState extends ConsumerState<DetailPopup> {
                     icon: Icon(Icons.close, color: textColor, size: 28),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.edit, color: textColor, size: 24),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => AddCardScreen(editCard: card),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          card.isFavorite
+                              ? Icons.star_rounded
+                              : Icons.star_outline_rounded,
+                          color: card.isFavorite
+                              ? Colors.amber.shade300
+                              : textColor,
+                          size: 26,
                         ),
-                      );
-                    },
+                        onPressed: () {
+                          ref
+                              .read(loyaltyCardsProvider.notifier)
+                              .toggleFavorite(card.id);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.edit, color: textColor, size: 24),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => AddCardScreen(editCard: card),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),

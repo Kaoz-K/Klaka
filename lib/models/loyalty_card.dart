@@ -29,6 +29,12 @@ class LoyaltyCard extends HiveObject {
   @HiveField(7)
   String? notes;
 
+  @HiveField(8)
+  bool isFavorite;
+
+  @HiveField(9)
+  DateTime? lastUsedAt;
+
   LoyaltyCard({
     required this.id,
     required this.companyName,
@@ -38,6 +44,8 @@ class LoyaltyCard extends HiveObject {
     this.logoAssetPath,
     required this.createdAt,
     this.notes,
+    this.isFavorite = false,
+    this.lastUsedAt,
   });
 
   LoyaltyCard copyWith({
@@ -47,6 +55,8 @@ class LoyaltyCard extends HiveObject {
     String? logoUrl,
     String? logoAssetPath,
     String? notes,
+    bool? isFavorite,
+    DateTime? lastUsedAt,
   }) {
     return LoyaltyCard(
       id: id,
@@ -57,6 +67,8 @@ class LoyaltyCard extends HiveObject {
       logoAssetPath: logoAssetPath ?? this.logoAssetPath,
       createdAt: createdAt,
       notes: notes ?? this.notes,
+      isFavorite: isFavorite ?? this.isFavorite,
+      lastUsedAt: lastUsedAt ?? this.lastUsedAt,
     );
   }
 }

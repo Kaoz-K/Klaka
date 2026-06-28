@@ -1,7 +1,7 @@
 name: klaka
 description: "Digital loyalty card wallet"
 publish_to: 'none'
-version: 1.0.0+5
+version: 1.0.0+10
 
 environment:
   sdk: ^3.11.3

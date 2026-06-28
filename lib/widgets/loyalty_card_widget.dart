@@ -57,6 +57,25 @@ class LoyaltyCardWidget extends StatelessWidget {
                 ),
               ),
             ),
+            // Ster-indicator voor favorieten
+            if (card.isFavorite)
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Icon(
+                  Icons.star_rounded,
+                  size: 18,
+                  color: isDark
+                      ? Colors.amber.shade300
+                      : Colors.amber.shade700,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withValues(alpha: 0.3),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
             // Content: logo + naam
             Padding(
               padding: const EdgeInsets.all(12),

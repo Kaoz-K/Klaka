@@ -25,13 +25,15 @@ class LoyaltyCardAdapter extends TypeAdapter<LoyaltyCard> {
       logoAssetPath: fields[5] as String?,
       createdAt: fields[6] as DateTime,
       notes: fields[7] as String?,
+      isFavorite: fields[8] as bool? ?? false,
+      lastUsedAt: fields[9] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, LoyaltyCard obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,7 +49,11 @@ class LoyaltyCardAdapter extends TypeAdapter<LoyaltyCard> {
       ..writeByte(6)
       ..write(obj.createdAt)
       ..writeByte(7)
-      ..write(obj.notes);
+      ..write(obj.notes)
+      ..writeByte(8)
+      ..write(obj.isFavorite)
+      ..writeByte(9)
+      ..write(obj.lastUsedAt);
   }
 
   @override
